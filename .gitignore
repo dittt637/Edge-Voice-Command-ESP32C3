@@ -1,0 +1,8 @@
+# Temporary & IDE files
+.vscode/
+*.tmp
+~$*.docx
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db
