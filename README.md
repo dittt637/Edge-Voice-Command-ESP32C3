@@ -18,10 +18,6 @@ Proyek ini mengimplementasikan sistem pengenalan perintah suara (*Keyword Spotti
 4. **Muhammad Irfan Permana Putra**
 5. **Rafi Fadil Nugroho**
 
-*Dosen Pengampu:*
-- Nur Achmad Sulistyo Putro, S.Si., M.Cs., Ph.D.
-- Dr. Roghib Muhammad Hujja, S.Si., M.Cs.
-
 ---
 
 ## 🏗️ Arsitektur Sistem & Diagram
