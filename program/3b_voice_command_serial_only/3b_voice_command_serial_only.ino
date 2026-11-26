@@ -52,7 +52,7 @@
 
 // ==================== KONFIGURASI AI & VAD ===================
 #define CONFIDENCE_THRESHOLD  0.75  // Ambang batas keyakinan tebakan (75%)
-#define VAD_RMS_THRESHOLD     300   // Ambang RMS deteksi suara aktif
+#define VAD_RMS_THRESHOLD     120   // Ambang RMS deteksi suara aktif (hening ~20-80, bicara ~200-700)
 
 // Buffer audio mentah 1 detik
 int16_t audio_buffer[TOTAL_SAMPLES];
@@ -110,7 +110,8 @@ void loop() {
 
   // ========== TAHAP 3: CETAK HASIL KE SERIAL MONITOR ==========
   Serial.println("--------------------------------------------------");
-  Serial.printf("Waktu Inferensi: %lu ms\n", latency);
+  Serial.printf("Waktu Total: %lu ms (MFCC: %d ms | CNN: %d ms)\n",
+                latency, result.timing.dsp, result.timing.classification);
   Serial.println("Probabilitas Klasifikasi:");
 
   float max_score = 0.0f;
@@ -182,7 +183,7 @@ void setupI2S() {
 bool recordAudioWithVAD() {
   int samples_recorded = 0;
   int32_t temp_buf[DMA_BUF_LEN];
-  double sum_sq = 0.0;
+  long long sum = 0;
 
   while (samples_recorded < TOTAL_SAMPLES) {
     size_t bytes_read = 0;
@@ -194,9 +195,17 @@ bool recordAudioWithVAD() {
     for (int i = 0; i < got && samples_recorded < TOTAL_SAMPLES; i++) {
       int16_t sample = (int16_t)(temp_buf[i] >> 16);
       audio_buffer[samples_recorded] = sample;
-      sum_sq += (double)sample * sample;
+      sum += sample;
       samples_recorded++;
     }
+  }
+
+  // Hilangkan DC offset sebelum menghitung energi suara RMS untuk VAD
+  int32_t mean = (int32_t)(sum / TOTAL_SAMPLES);
+  double sum_sq = 0.0;
+  for (int i = 0; i < TOTAL_SAMPLES; i++) {
+    double centered = (double)(audio_buffer[i] - mean);
+    sum_sq += centered * centered;
   }
 
   double rms = sqrt(sum_sq / TOTAL_SAMPLES);
@@ -204,6 +213,7 @@ bool recordAudioWithVAD() {
     return false;
   }
 
+  Serial.printf(">> Suara aktif (RMS: %.0f)\n", rms);
   return true;
 }
 
