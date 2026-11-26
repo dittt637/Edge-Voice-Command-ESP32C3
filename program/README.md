@@ -29,13 +29,12 @@ dari awal (tes hardware) sampai akhir (evaluasi dan laporan).
   5. Tekan tombol BOOT di ESP32 -> ucapkan kata -> file tersimpan otomatis
 - Target: 650 file WAV total (130 per kelas x 5 kelas)
 
-### Program 3: Robot Voice Command (`3_robot_voice_command/`)
-- File: `3_robot_voice_command.ino`
-- Platform: Arduino IDE + Library Edge Impulse
-- Fungsi: Program utama "otak" robot. Mendengar kata, menebak pakai AI,
-  lalu mengeksekusi aksi (LED/motor).
-- Prasyarat: Model AI sudah dilatih di edgeimpulse.com dan library
-  Arduino sudah didownload & diinstall.
+### Program 3: Robot Voice Command (`3_robot_voice_command/` & `3b_voice_command_serial_only/`)
+- File 3 (Dengan Indikator LED/Motor): `3_robot_voice_command/3_robot_voice_command.ino`
+- File 3B (Serial Monitor Only, Tanpa LED): `3b_voice_command_serial_only/3b_voice_command_serial_only.ino`
+- Platform: Arduino IDE + Library Edge Impulse (`ei-instrumentasi-voice-command-arduino-1.0.7-impulse-#1.zip`)
+- Fungsi: Program utama pengenalan kata (`forward`, `left`, `right`, `stop`, `silent`).
+- Prasyarat: Install library ZIP dari menu `Sketch > Include Library > Add .ZIP Library...`.
 
 ### Program 4: Pengujian & Evaluasi (`4_uji_google_cloud/`)
 - File Python 1: `uji_google_cloud.py` -> Komparasi latensi Edge vs Cloud
