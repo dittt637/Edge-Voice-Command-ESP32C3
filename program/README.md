@@ -29,9 +29,10 @@ dari awal (tes hardware) sampai akhir (evaluasi dan laporan).
   5. Tekan tombol BOOT di ESP32 -> ucapkan kata -> file tersimpan otomatis
 - Target: 650 file WAV total (130 per kelas x 5 kelas)
 
-### Program 3: Robot Voice Command (`3_robot_voice_command/` & `3b_voice_command_serial_only/`)
+### Program 3: Robot Voice Command (`3_robot_voice_command/`, `3b_voice_command_serial_only/`, & `3c_voice_command_with_speaker/`)
 - File 3 (Dengan Indikator LED/Motor): `3_robot_voice_command/3_robot_voice_command.ino`
-- File 3B (Serial Monitor Only, Tanpa LED): `3b_voice_command_serial_only/3b_voice_command_serial_only.ino`
+- File 3B (Serial Monitor Only, Tanpa LED): `3b_voice_command_serial_only/3b_voice_command_serial_only.ino` (+ `pc_voice_feedback.py` opsional untuk bunyi via speaker laptop)
+- File 3C (Dengan Amplifier MAX98357A + Speaker Mini 8 Ohm): `3c_voice_command_with_speaker/3c_voice_command_with_speaker.ino` + `voice_clips.h`
 - Platform: Arduino IDE + Library Edge Impulse (`ei-instrumentasi-voice-command-arduino-1.0.7-impulse-#1.zip`)
 - Fungsi: Program utama pengenalan kata (`forward`, `left`, `right`, `stop`, `silent`).
 - Prasyarat: Install library ZIP dari menu `Sketch > Include Library > Add .ZIP Library...`.
